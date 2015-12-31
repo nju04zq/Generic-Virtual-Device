@@ -39,7 +39,8 @@ enum {
 };
 
 struct cli_parser_info_s;
-typedef int (*cli_handler)(struct cli_parser_info_s *);
+typedef int (*node_handler)(struct cli_parser_info_s *);
+typedef void (*cli_handler)(struct cli_parser_info_s *);
 
 typedef struct cli_tree_node_s {
     struct cli_tree_node_s *acc_p;
@@ -47,7 +48,8 @@ typedef struct cli_tree_node_s {
 	struct cli_tree_node_s *help_prev_p;
 	struct cli_tree_node_s *help_next_p;
     char *keyword;
-    cli_handler handler;
+    cli_handler cli_handler;
+    node_handler node_handler;
     int min;
     int max;
     int param1;

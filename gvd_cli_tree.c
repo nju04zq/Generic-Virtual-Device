@@ -12,7 +12,7 @@
 #define EXIT_HELP_STR_MAX_LEN 63
 #define NUM_NODE_HELP_STR_MAX_LEN 15
 
-cli_tree_node_t node_dead = {NULL, NULL, NULL, NULL, NULL, NULL,
+cli_tree_node_t node_dead = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                              0, 0, -1, -1, NULL, CLI_NODE_TYPE_DEAD,
                              CLI_MODE_NONE, 0};
 

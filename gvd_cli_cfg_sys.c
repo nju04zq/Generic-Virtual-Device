@@ -30,7 +30,7 @@
 #define SECS_PER_DAY  (24*SECS_PER_HOUR)
 #define SECS_PER_WEEK (7*SECS_PER_DAY)
 
-int
+void
 exec_show_time (struct cli_parser_info_s *cpi_p)
 {
     time_t time_value;
@@ -44,7 +44,7 @@ exec_show_time (struct cli_parser_info_s *cpi_p)
     strftime(time_str, sizeof(time_str), "%a %b %d %T %Z %Y", &tm);
     printb(output_p, "%s\n", time_str);
 
-    return PROCESS_CONTINUE;
+    return;
 }
 
 #ifdef __GVD_LINUX__
@@ -129,7 +129,7 @@ get_mem_info (struct sysinfo *sys_info_p, char *total_mem)
     return;
 }
 
-int
+void
 exec_show_version (struct cli_parser_info_s *cpi_p)
 {
     print_buffer_t *output_p = &cpi_p->cli_output;
@@ -158,70 +158,71 @@ exec_show_version (struct cli_parser_info_s *cpi_p)
            u_name.machine, total_mem, sys_info.procs);
     printb(output_p, "GVD run as %s\n\n", exe_location);
 
-    return PROCESS_CONTINUE;
+    return;
 }
 
 #else
 
-int
+void
 exec_show_version (struct cli_parser_info_s *cpi_p)
 {
     print_buffer_t *output_p = &cpi_p->cli_output;
 
     printb(output_p, "Dummy command on non-Linux platform.\n");
-    return PROCESS_CONTINUE;
+    return;
 }
 
 #endif
 
-int
+void
 exec_logfile_flush (struct cli_parser_info_s *cpi_p)
 {
     printv("All console content dumped.\n");
     dump_all_lines_to_disk();
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_logfile_clear (struct cli_parser_info_s *cpi_p)
 {
     clear_disk_logfile();
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_config_term (struct cli_parser_info_s *cpi_p)
 {
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_quit (struct cli_parser_info_s *cpi_p)
 {
-    return PROCESS_EXIT;
+    cpi_p->process_result = PROCESS_EXIT;
+    return;
 }
 
-int
+void
 exec_exit (struct cli_parser_info_s *cpi_p)
 {
     gvd_return_upper_cli_mode(cpi_p->tty_p);
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_end (struct cli_parser_info_s *cpi_p)
 {
     gvd_return_exec_cli_mode(cpi_p->tty_p);
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_shell_mode (struct cli_parser_info_s *cpi_p)
 {
-    return PROCESS_CONTINUE;
+    return;
 }
 
-int
+void
 exec_shell_cmd (struct cli_parser_info_s *cpi_p)
 {
     char *cmd;
@@ -230,6 +231,6 @@ exec_shell_cmd (struct cli_parser_info_s *cpi_p)
     cmd = GET_OBJ(P_STRING, 0);
     run_shell_cmd(cmd, output_p);
     printb(output_p, "\n\n");
-    return PROCESS_CONTINUE;
+    return;
 }
 

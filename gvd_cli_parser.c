@@ -442,7 +442,7 @@ select_ifelse_node (cli_parser_info_t *cpi_p, cli_tree_node_t *node_p)
 {
     int result;
 
-    result = node_p->handler(cpi_p);
+    result = node_p->node_handler(cpi_p);
     if (result != 0) {
         return node_p->acc_p;
     } else {
@@ -599,7 +599,6 @@ static int
 exec_cli (cli_parser_info_t *cpi_p, cli_tree_node_t *node_p)
 {
     print_buffer_t *output_p = &cpi_p->cli_output;
-    int ret;
 
     while (node_p) {
         if (node_p->node_type == CLI_NODE_TYPE_END) {
@@ -614,10 +613,9 @@ exec_cli (cli_parser_info_t *cpi_p, cli_tree_node_t *node_p)
     }
 
     cpi_p->flag = node_p->flag;
-    ret = node_p->handler(cpi_p);
-
-    if (ret != PROCESS_CONTINUE) {
-        return ret;
+    node_p->cli_handler(cpi_p);
+    if (cpi_p->process_result != PROCESS_CONTINUE) {
+        return cpi_p->process_result;
     }
 
     if (node_p->submode_type != CLI_MODE_NONE &&
@@ -625,7 +623,7 @@ exec_cli (cli_parser_info_t *cpi_p, cli_tree_node_t *node_p)
         gvd_enter_lower_cli_mode(cpi_p->tty_p, node_p->submode_type);
     }
 
-    return ret;
+    return PROCESS_CONTINUE;
 }
 
 static int
@@ -905,8 +903,8 @@ cli_query_print_help_node_list (cli_parser_info_t *cpi_p,
     node_p = head_node_p;
     if (node_p->node_type == CLI_NODE_TYPE_HELP) {
         printb(output_p, node_p->help_string);
-        if (node_p->handler) {
-            (void)node_p->handler(cpi_p);
+        if (node_p->node_handler) {
+            (void)node_p->node_handler(cpi_p);
         }
         node_p = node_p->help_next_p;
     }
@@ -1228,6 +1226,7 @@ init_cli_parser_info (cli_parser_info_t *cpi_p, char *cli_in)
     cpi_p->root_node_p = cpi_p->tty_p->cli_mode_p->root_node_p;
     cpi_p->cli = cli;
     cpi_p->cli_org = cli_in;
+    cpi_p->process_result = PROCESS_CONTINUE;
     memset(cpi_p->P_INT_buf, 0, P_MAX*sizeof(int));
     memset(cpi_p->P_STRING_buf, 0, P_MAX*sizeof(char *));
 

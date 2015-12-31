@@ -45,6 +45,7 @@ typedef struct cli_parser_info_s {
     cli_tree_node_t *root_node_p;
     char *cli;
     char *cli_org;
+    int process_result;
 } cli_parser_info_t;
 
 int cli_parser_request(struct gvd_tty_s *tty_p, int req_code, char *cmd,
