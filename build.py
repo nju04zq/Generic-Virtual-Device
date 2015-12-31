@@ -1,4 +1,5 @@
 import os
+import platform
 
 class ContentVar(object):
     def __init__(self, var_line, var_idx):
@@ -765,5 +766,9 @@ def generate_makefile(build_defs, cflags):
     fp.write(makefile)
     fp.close()
 
+if platform.system() == "Linux":
+    platform_flag = "-D__GVD_LINUX__"
+else:
+    platform_flag = ""
 build_defs = ["gvd_bin"]
-generate_makefile(build_defs, ["-g"])
+generate_makefile(build_defs, ["-g", platform_flag])

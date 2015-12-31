@@ -28,7 +28,7 @@ endif
 
 INCLUDE_DIR = -I.
 
-MK_CFLAGS = -g -g -Wall -Werror 
+MK_CFLAGS =  -g -g -Wall -Werror 
 
 $(build_dir)/gvd: $(build_dir)/./gvd_cli_cfg_sys.o \
                   $(build_dir)/./gvd_cli_example.o \

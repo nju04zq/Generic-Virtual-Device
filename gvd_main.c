@@ -639,7 +639,7 @@ printf_ps (void)
     char ps[PS_MAX_LEN+1];
 
     make_ps(ps);
-    printf(ps);
+    printf("%s", ps);
     return;
 }
 
@@ -686,7 +686,7 @@ autotest_mode (void)
         return;
     }
 
-    printf(banner);
+    printf("%s", banner);
 
     printf_ps();
 
@@ -695,7 +695,7 @@ autotest_mode (void)
         process_result = cli_parser_request(&gvd_tty, PARSER_REQ_EXEC,
                                             cmd, &output);
         if (output) {
-            printf(output);
+            printf("%s", output);
             free(output);
         }
         if (process_result == PROCESS_EXIT) {
