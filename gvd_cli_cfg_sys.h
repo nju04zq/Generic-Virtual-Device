@@ -16,6 +16,9 @@ int
 exec_logfile_clear(struct cli_parser_info_s *cpi_p);
 
 int
+exec_config_term(struct cli_parser_info_s *cpi_p);
+
+int
 exec_quit(struct cli_parser_info_s *cpi_p);
 
 int

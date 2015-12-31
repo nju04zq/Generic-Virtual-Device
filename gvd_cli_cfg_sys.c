@@ -8,13 +8,16 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
-#include <sys/sysinfo.h>
 #include "gvd_tty.h"
 #include "gvd_util.h"
 #include "gvd_common.h"
 #include "gvd_cli_tree.h"
 #include "gvd_cli_parser.h"
 #include "gvd_line_buffer.h"
+
+#ifdef __GVD_LINUX__
+#include <sys/sysinfo.h>
+#endif
 
 #define COMPILE_TIME_MAX_LEN 31
 #define USER_NAME_MAX_LEN 31
@@ -43,6 +46,8 @@ exec_show_time (struct cli_parser_info_s *cpi_p)
 
     return PROCESS_CONTINUE;
 }
+
+#ifdef __GVD_LINUX__
 
 static void
 get_exe_file_info (char *compile_time, char *user_name, char *exe_location)
@@ -156,6 +161,19 @@ exec_show_version (struct cli_parser_info_s *cpi_p)
     return PROCESS_CONTINUE;
 }
 
+#else
+
+int
+exec_show_version (struct cli_parser_info_s *cpi_p)
+{
+    print_buffer_t *output_p = &cpi_p->cli_output;
+
+    printb(output_p, "Dummy command on non-Linux platform.\n");
+    return PROCESS_CONTINUE;
+}
+
+#endif
+
 int
 exec_logfile_flush (struct cli_parser_info_s *cpi_p)
 {
@@ -168,6 +186,12 @@ int
 exec_logfile_clear (struct cli_parser_info_s *cpi_p)
 {
     clear_disk_logfile();
+    return PROCESS_CONTINUE;
+}
+
+int
+exec_config_term (struct cli_parser_info_s *cpi_p)
+{
     return PROCESS_CONTINUE;
 }
 

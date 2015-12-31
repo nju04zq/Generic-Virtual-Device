@@ -8,7 +8,6 @@
 #ifndef __GVD_CLI_BASE_H__
 #define __GVD_CLI_BASE_H__
 
-#include <linux/stddef.h> //for NULL
 #include "gvd_cli_tree.h"
 
 extern cli_tree_node_t node_dead;

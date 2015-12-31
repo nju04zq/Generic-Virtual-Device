@@ -99,13 +99,27 @@ KEYWORD(node_logfile,
         node_show,
         "logfile", "Do action on console log file");
 
+/* configure terminal */
+
+END_SUBMODE(node_config_term_end, exec_config_term, CLI_MODE_CONFIG);
+
+KEYWORD(node_config_term,
+        node_config_term_end,
+        NO_ALT,
+        "terminal", "Configure from the terminal");
+
+KEYWORD(node_config,
+        node_config_term,
+        node_logfile,
+        "configure", "Enter configuration mode");
+
 /* quit */
 
 END(node_quit_end, exec_quit);
 
 KEYWORD(node_quit,
         node_quit_end,
-        node_logfile,
+        node_config,
         "quit", "Quit GVD");
 
 // Link to Exec mode

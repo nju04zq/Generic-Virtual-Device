@@ -25,6 +25,10 @@ static cli_mode_def_t cli_mode_defs[] =
         CLI_MODE_SHELL, CLI_MODE_EXEC, "shell",
         "Shell"
     },
+    {
+        CLI_MODE_CONFIG, CLI_MODE_EXEC, "config",
+        "Configure"
+    },
 };
 
 static cli_tree_root_link_t *tree_root_links[] =

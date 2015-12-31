@@ -33,11 +33,8 @@ enum {
     CLI_MODE_NONE = 0,
     CLI_MODE_EXEC,
     CLI_MODE_SHELL,
+    // put config related mode below
     CLI_MODE_CONFIG,
-    CLI_MODE_CONFIG_IF,
-    CLI_MODE_CALL_HOME,
-    CLI_MODE_PROFILE,
-    CLI_MODE_DS,
 };
 
 struct cli_parser_info_s;
