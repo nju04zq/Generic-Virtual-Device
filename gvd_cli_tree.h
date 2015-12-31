@@ -34,10 +34,7 @@ enum {
     CLI_MODE_EXEC,
     CLI_MODE_SHELL,
     CLI_MODE_CONFIG,
-    CLI_MODE_CONFIG_IF,
-    CLI_MODE_CALL_HOME,
-    CLI_MODE_PROFILE,
-    CLI_MODE_DS,
+    CLI_MODE_CONFIG_GVD,
 };
 
 struct cli_parser_info_s;

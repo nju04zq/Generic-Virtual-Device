@@ -14,6 +14,8 @@ all: $(build_dir)/gvd
 
 ifneq ($(MAKECMDGOALS), clean)
 -include $(build_dir)/./gvd_cli_cfg_sys.d
+-include $(build_dir)/./gvd_cli_example.d
+-include $(build_dir)/./gvd_cli_example_tree.d
 -include $(build_dir)/./gvd_cli_parser.d
 -include $(build_dir)/./gvd_cli_tree.d
 -include $(build_dir)/./gvd_cli_tty.d
@@ -29,6 +31,8 @@ INCLUDE_DIR = -I.
 MK_CFLAGS = -g -g -Wall -Werror 
 
 $(build_dir)/gvd: $(build_dir)/./gvd_cli_cfg_sys.o \
+                  $(build_dir)/./gvd_cli_example.o \
+                  $(build_dir)/./gvd_cli_example_tree.o \
                   $(build_dir)/./gvd_cli_parser.o \
                   $(build_dir)/./gvd_cli_tree.o \
                   $(build_dir)/./gvd_cli_tty.o \

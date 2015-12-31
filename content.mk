@@ -23,7 +23,9 @@ gvd = gvd_cli_cfg_sys.c \
       gvd_line_buffer.c \
       gvd_main.c \
       gvd_tty.c \
-      gvd_util.c
+      gvd_util.c \
+      gvd_cli_example.c \
+      gvd_cli_example_tree.c
 
 # define relied so path for bin target
 # keep the var name as bin_LDSO

@@ -7,6 +7,7 @@
 #include "gvd_common.h"
 #include "gvd_cfg_sys.h"
 #include "gvd_cli_tree.h"
+#include "gvd_cli_example_tree.h"
 
 #define EXIT_HELP_STR_MAX_LEN 63
 #define NUM_NODE_HELP_STR_MAX_LEN 15
@@ -24,6 +25,14 @@ static cli_mode_def_t cli_mode_defs[] =
     {
         CLI_MODE_SHELL, CLI_MODE_EXEC, "shell",
         "Shell"
+    },
+    {
+        CLI_MODE_CONFIG, CLI_MODE_EXEC, "config",
+        "Configure"
+    },
+    {
+        CLI_MODE_CONFIG_GVD, CLI_MODE_CONFIG, "gvd",
+        "Configure GVD"
     },
 };
 
@@ -340,10 +349,6 @@ add_buildin_exit_node (cli_mode_t *cli_mode_p)
 {
     cli_tree_node_t *exit_node_p, *end_node_p;
 
-    if (!cli_mode_p->root_node_p) {
-        return;
-    }
-
     exit_node_p = clone_cli_node(&node_exit);
     if (!exit_node_p) {
         return;
@@ -448,6 +453,13 @@ gvd_init_cli_tree (void)
     if (rc == -1) {
         return -1;
     }
+
+    rc = gvd_init_example_cli_tree();
+    if (rc == -1) {
+        return -1;
+    }
+
+    rc = gvd_init_example_cli_tree();
 
     change_all_num_node_keyword();
 
